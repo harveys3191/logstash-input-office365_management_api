@@ -1,0 +1,4 @@
+logstash.yml
+Gemfile.lock
+.ruby-version
+logstash-input-office365_management_api*.gem
