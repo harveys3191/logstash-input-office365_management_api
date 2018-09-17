@@ -1,0 +1,40 @@
+input {
+  office365_management_api {
+  client_id => "changeme"
+  client_secret => "changeme"
+  tenant_id => "changeme"
+  tenant_domain => "yourtenant.onmicrosoft.com"
+  private_key => "/tmp/o365.pfx"
+  subscriptions => [ "Audit.AzureActiveDirectory", "Audit.Exchange", "Audit.SharePoint", "Audit.General", "DLP.All" ]
+  codec => "json"
+  type => "office365"
+  }
+}
+
+filter {
+ if [type] == "office365" {
+  json {
+    source => "message"
+    }
+  geoip {
+    source => "ClientIPAddress"
+    }
+  date {
+    match => [ "CreationTime", "ISO8601" ]
+    }
+  #mutate {
+  #  remove_field => ["message"]
+  #  }
+  }
+}
+
+output {
+    #stdout { codec => rubydebug }
+  elasticsearch {
+    hosts => ["elasticsearch:9200"]
+    user => elastic
+    password => changeme
+    index => "office365-%{+YYYY-MM-dd}"
+    document_id => "%{Id}"
+  }
+}
