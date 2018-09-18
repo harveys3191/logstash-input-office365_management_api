@@ -45,16 +45,16 @@ class LogStash::Inputs::Office365ManagementApi < LogStash::Inputs::Base
   config :tenant_id, :validate => :string, :required => true
 
   # Your Office 365 tenant domain, ie. yourdomain.onmicrosoft.com
-  config :tenant_domain, :validate => :string, :required => true
+  #config :tenant_domain, :validate => :string, :required => true
 
   # Resource you are requesting access to. This defaults to https://manage.office.com and shouldn't change unless necessary.
   config :resource, :validate => :string, :default => 'https://manage.office.com'
 
   # PFX Private key for your Application Certificate you created
-  config :private_key, :validate => :path
+  #config :private_key, :validate => :path
 
   # Private key password if one was used
-  config :private_key_password, :validate => :string, :default => nil
+  #config :private_key_password, :validate => :string, :default => nil
 
   # Activity subscriptions you want to monitor
   # These can be one or many of:
